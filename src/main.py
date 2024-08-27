@@ -11,3 +11,4 @@ app = FastAPI()
 
 # register routes
 app.include_router(authentication.router)
+app.include_router(coffee_shop.router)
