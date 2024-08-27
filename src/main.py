@@ -10,3 +10,4 @@ from src.routers import (
 app = FastAPI()
 
 # register routes
+app.include_router(authentication.router)
