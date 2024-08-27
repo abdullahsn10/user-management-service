@@ -79,7 +79,7 @@ def login(request: schemas.LoginRequestBody, db: Session) -> schemas.Token:
 
     # create jwt and return it
     # get the coffee shop id
-    coffee_shop_id = branch.find_branch(
+    coffee_shop_id = branch._find_branch(
         branch_id=current_user.branch_id, db=db
     ).coffee_shop_id
     access_token = generate_token_for_user(
