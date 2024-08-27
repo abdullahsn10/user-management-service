@@ -24,8 +24,6 @@ class Customer(Base):
     phone_no = Column(String, nullable=False)
     coffee_shop_id = Column(Integer, ForeignKey("coffee_shop.id"))
     created = Column(TIMESTAMP, nullable=False, default=datetime.now)
-    # relationship with order
-    orders = relationship("Order", back_populates="customer")
 
     # adding uniqueness constraint for phone and coffee_shop
     __table_args__ = (
