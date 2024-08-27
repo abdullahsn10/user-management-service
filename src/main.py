@@ -10,5 +10,3 @@ from src.routers import (
 app = FastAPI()
 
 # register routes
-
-
