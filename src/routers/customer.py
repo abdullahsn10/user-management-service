@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from src import schemas
 from sqlalchemy.orm import Session
 from src.settings.database import get_db
@@ -11,6 +11,34 @@ router = APIRouter(
     tags=["Customers"],
     prefix="/customers",
 )
+
+
+@router.post("/", response_model=schemas.CustomerResponse)
+def get_or_create_customer_endpoint(
+    request: schemas.CustomerPOSTRequestBody,
+    response: Response,
+    db: Session = Depends(get_db),
+    current_user: schemas.TokenData = Depends(
+        require_role([UserRole.ADMIN, UserRole.CASHIER])
+    ),
+):
+    """
+    POST endpoint to get or create a customer
+    """
+    try:
+        customer_instance, status_code = customer._get_or_create_customer(
+            request=request,
+            db=db,
+            coffee_shop_id=current_user.coffee_shop_id,
+        )
+        response.status_code = status_code
+        return customer_instance
+    except UserManagementServiceException as se:
+        raise HTTPException(status_code=se.status_code, detail=se.message)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
+        )
 
 
 @router.put("/{customer_id}", response_model=schemas.CustomerResponse)

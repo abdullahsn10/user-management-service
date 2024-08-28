@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -27,6 +28,7 @@ class CustomerResponse(BaseModel):
     name: str
     phone_no: str
     coffee_shop_id: int
+    created: datetime
 
     class Config:
         orm_mode = True
