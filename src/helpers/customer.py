@@ -36,22 +36,23 @@ def _find_customer(
     return query.first()
 
 
-def _create_customer(
+def _get_or_create_customer(
     request: schemas.CustomerPOSTRequestBody,
     db: Session,
     coffee_shop_id: int,
-):
+) -> tuple[models.Customer, int]:
     """
     This helper function used to create a new customer if not exists in a specific shop,
      else returns that customer
     *Args:
         request (schemas.CustomerPOSTRequestBody): contains customer details
     *Returns:
-        the Customer instance
+        the Customer instance and status code (201 if created, 200 if exists)
     """
     customer_instance = _find_customer(
         db, phone_no=request.phone_no, coffee_shop_id=coffee_shop_id
     )
+    status_code = status.HTTP_200_OK
     if not customer_instance:
         customer_instance = models.Customer(
             phone_no=request.phone_no,
@@ -61,7 +62,8 @@ def _create_customer(
         db.add(customer_instance)
         db.commit()
         db.refresh(customer_instance)
-    return customer_instance
+        status_code = status.HTTP_201_CREATED
+    return customer_instance, status_code
 
 
 def _validate_customer_on_update(
