@@ -14,7 +14,7 @@ def list_new_customers(
         from_date (date): start date to filter orders
         to_date (date): end date to filter orders
     *Returns:
-        NewCustomersReport : number of new customers
+        NewCustomersReport : number of new customers, list of new customers
     """
     query = db.query(models.Customer).filter(
         models.Customer.coffee_shop_id == coffee_shop_id,

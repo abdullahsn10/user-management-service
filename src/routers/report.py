@@ -24,7 +24,7 @@ def list_new_customers_endpoint(
     current_user: schemas.TokenData = Depends(require_role([UserRole.ADMIN])),
 ):
     """
-    GET endpoint to list number of new customers in a given period
+    GET endpoint to list new customers in the shop in a given period
     """
     try:
         check_if_user_can_access_shop(
