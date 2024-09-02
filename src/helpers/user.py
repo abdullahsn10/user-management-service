@@ -30,7 +30,9 @@ def _is_user_exist(
     if phone_no:
         query = query.filter(models.User.phone_no == phone_no)
     if excluded_user_id:
-        query = query.filter(models.User.id.notin_(excluded_user_id))
+        query = query.filter(
+            models.User.id.notin_([uid for uid in excluded_user_id if uid is not None])
+        )
 
     return query.first() is not None
 
