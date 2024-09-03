@@ -142,6 +142,7 @@ def update_customer(
         name=customer_instance.name,
         phone_no=customer_instance.phone_no,
         coffee_shop_id=customer_instance.coffee_shop_id,
+        created=customer_instance.created,
     )
 
 
