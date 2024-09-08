@@ -36,7 +36,7 @@ def _find_customer(
     return query.first()
 
 
-def _get_or_create_customer(
+def get_or_create_customer(
     request: schemas.CustomerPOSTRequestBody,
     db: Session,
     coffee_shop_id: int,
