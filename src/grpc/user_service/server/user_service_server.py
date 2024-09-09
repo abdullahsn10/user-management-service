@@ -9,6 +9,7 @@ from src.settings.database import db
 from src.schemas import CustomerPOSTRequestBody
 from src.grpc.user_service.server.user_service_helpers import _extract_token_data
 from src.settings.settings import GRPC_SERVER_ADDRESS
+from src.exceptions.exception import UserManagementServiceException
 
 
 class UserServiceServicer(user_service_pb2_grpc.UserServiceServicer):
@@ -30,7 +31,7 @@ class UserServiceServicer(user_service_pb2_grpc.UserServiceServicer):
         """
         try:
             # Validate token, AUTH LOGIC
-            token_data = _extract_token_data(token=request.token_data.token)
+            token_data = _extract_token_data(token="ss")
 
             # Fetch or create customer
             customer_details = CustomerPOSTRequestBody(
@@ -53,6 +54,10 @@ class UserServiceServicer(user_service_pb2_grpc.UserServiceServicer):
                 customer=customer_response, status_code=status_code
             )
 
+        except UserManagementServiceException as ue:
+            context.set_code(grpc.StatusCode.UNAUTHENTICATED)
+            context.set_details(ue.message)
+            return user_service_pb2.CustomerResponseWrapper()
         except Exception as e:
             context.set_code(grpc.StatusCode.INTERNAL)
             context.set_details(str(e))
