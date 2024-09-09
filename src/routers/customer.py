@@ -19,14 +19,14 @@ def get_or_create_customer_endpoint(
     response: Response,
     db: Session = Depends(get_db),
     current_user: schemas.TokenData = Depends(
-        require_role([UserRole.ADMIN, UserRole.CASHIER])
+        require_role([UserRole.ADMIN, UserRole.CASHIER, UserRole.ORDER_RECEIVER])
     ),
 ):
     """
     POST endpoint to get or create a customer
     """
     try:
-        customer_instance, status_code = customer._get_or_create_customer(
+        customer_instance, status_code = customer.get_or_create_customer(
             request=request,
             db=db,
             coffee_shop_id=current_user.coffee_shop_id,
