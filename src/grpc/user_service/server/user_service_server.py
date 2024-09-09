@@ -31,7 +31,7 @@ class UserServiceServicer(user_service_pb2_grpc.UserServiceServicer):
         """
         try:
             # Validate token, AUTH LOGIC
-            token_data = _extract_token_data(token="ss")
+            token_data = _extract_token_data(token=request.token_data.token)
 
             # Fetch or create customer
             customer_details = CustomerPOSTRequestBody(
