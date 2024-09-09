@@ -19,7 +19,7 @@ def get_or_create_customer_endpoint(
     response: Response,
     db: Session = Depends(get_db),
     current_user: schemas.TokenData = Depends(
-        require_role([UserRole.ADMIN, UserRole.CASHIER])
+        require_role([UserRole.ADMIN, UserRole.CASHIER, UserRole.ORDER_RECEIVER])
     ),
 ):
     """
