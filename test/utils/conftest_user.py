@@ -1,9 +1,6 @@
 from src import models, schemas
 import pytest
 
-from sqlalchemy.orm import Session
-from unittest.mock import create_autospec
-
 
 @pytest.fixture
 def user() -> schemas.UserBase:
@@ -33,10 +30,3 @@ def user_post_request_body() -> schemas.UserPOSTRequestBody:
         role=models.UserRole.ADMIN,
         branch_id=1,
     )
-
-
-@pytest.fixture
-def mock_db() -> Session:
-    """Pytest fixture to create a mock Session instance."""
-    session = create_autospec(Session)
-    return session
