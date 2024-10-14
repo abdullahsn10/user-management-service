@@ -40,7 +40,7 @@ def signup(
     created_coffee_shop = coffee_shop._create_coffee_shop(
         request=coffee_shop_instance, db=db
     )
-    created_branch = branch._create_branch(
+    created_branch = branch.create_branch(
         request=branch_instance, db=db, coffee_shop_id=created_coffee_shop.id
     )
     created_admin_user = user._create_user(
