@@ -5,16 +5,28 @@ from dotenv import load_dotenv
 # load environment variables
 load_dotenv()
 
+# load database settings
+POSTGRES_USER = os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+DB_SERVICE = os.getenv("DB_SERVICE")
+POSTGRES_DB = os.getenv("POSTGRES_DB")
+
+# database url
+SQLALCHEMY_DATABASE_URL = (
+    f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{DB_SERVICE}/{POSTGRES_DB}"
+)
+
+
 # database settings
 DATABASE_SETTINGS = {
-    "URL": os.getenv("SQLALCHEMY_DATABASE_URL"),
+    "URL": SQLALCHEMY_DATABASE_URL,
 }
 
 # security settings
-with open(os.getenv("PRIVATE_KEY_PATH"), "r") as key_file:
+with open(os.getenv("PRIVATE_KEY_PATH"), "rb") as key_file:
     PRIVATE_KEY = key_file.read()
 
-with open(os.getenv("PUBLIC_KEY_PATH"), "r") as key_file:
+with open(os.getenv("PUBLIC_KEY_PATH"), "rb") as key_file:
     PUBLIC_KEY = key_file.read()
 
 
