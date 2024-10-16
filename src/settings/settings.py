@@ -23,11 +23,8 @@ DATABASE_SETTINGS = {
 }
 
 # security settings
-with open(os.getenv("PRIVATE_KEY_PATH"), "rb") as key_file:
-    PRIVATE_KEY = key_file.read()
-
-with open(os.getenv("PUBLIC_KEY_PATH"), "rb") as key_file:
-    PUBLIC_KEY = key_file.read()
+PRIVATE_KEY = os.getenv("PRIVATE_KEY")
+PUBLIC_KEY = os.getenv("PUBLIC_KEY")
 
 
 JWT_TOKEN_SETTINGS = {
