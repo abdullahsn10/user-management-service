@@ -34,10 +34,11 @@ RUN apk update && apk add --no-cache \
 
 # Copy the installed Python packages from the builder stage
 COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /app /app
 
 # Expose the ports the app runs on and the gRPC port
 EXPOSE 8000 50051
 
 # Define the command to run the application
-CMD ["python", "server.py"]
+CMD ["sh", "init_script.sh"]
