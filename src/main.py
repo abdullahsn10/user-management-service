@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from src.routers import authentication, coffee_shop, customer, user, report
+from src.settings.settings import OPENAPI_URL, ROOT_PATH
 
+app = FastAPI(
+    openapi_url=OPENAPI_URL,
+    root_path=ROOT_PATH,
+)
 
-app = FastAPI()
 
 # register routes
 app.include_router(authentication.router)
