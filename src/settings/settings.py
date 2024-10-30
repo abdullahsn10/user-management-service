@@ -38,3 +38,7 @@ JWT_TOKEN_SETTINGS = {
 GRPC_HOST = os.getenv("GRPC_HOST")
 GRPC_PORT = os.getenv("GRPC_PORT")
 GRPC_SERVER_ADDRESS = f"{GRPC_HOST}:{GRPC_PORT}"
+
+# docs settings
+OPENAPI_URL = os.getenv("OPENAPI_URL")
+ROOT_PATH = os.getenv("ROOT_PATH")
